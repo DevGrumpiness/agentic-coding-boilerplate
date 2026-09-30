@@ -127,6 +127,7 @@ Repeat steps 4 to 7 for every subsequent phase or feature. Use `/init-project` w
 │   └── skills/
 │       ├── agent-browser/          # Browser automation via agent-browser CLI
 │       └── e2e-test/               # End-to-end testing orchestration
+├── .env.example                    # Every env var the app needs, with placeholders
 ├── .gitignore
 └── README.md
 ```
@@ -152,6 +153,21 @@ Repeat steps 4 to 7 for every subsequent phase or feature. Use `/init-project` w
 |-------|---------|
 | **agent-browser** | Automates browser interactions: navigate, fill forms, click, screenshot. Used for manual verification. |
 | **e2e-test** | Full end-to-end testing: parallel research agents, then systematic browser testing of every user journey with database validation. Invoke explicitly with `/e2e-test`. |
+
+## Environment Variables: Keep .env.example Complete
+
+`.env.example` is not just documentation. It's a guardrail against a specific failure mode.
+
+When an agent needs a database URL, an API key, or a service endpoint and can't find it, it rarely stops and asks. It invents a variable name, writes a stub, or mocks the whole integration. Then it runs the tests against the mock and reports that everything works. You find out later that nothing was ever wired to a real service.
+
+To prevent that:
+
+- **List every variable** the app reads in `.env.example`, with a placeholder and a comment on where the real value comes from.
+- **Keep a real `.env`** locally before running `/execute`. Point it at a real dev database and real sandbox credentials, never at production.
+- **Ask the agent to fail loudly** when a variable is missing. A startup check that throws is better than a silent fallback to a mock.
+- **Treat "I mocked the service" in an execution report as a red flag.** Check whether the mock was in the plan, and if not, wire the real thing before validating.
+
+`/init-project` copies `.env.example` to `.env` as its first step, and `.gitignore` keeps `.env` out of the repo while leaving `.env.example` tracked.
 
 ## Making It Yours
 

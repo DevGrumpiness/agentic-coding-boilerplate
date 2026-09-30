@@ -26,6 +26,15 @@ For EACH task in "Step by Step Tasks":
 - Identify the file and action required
 - Read existing related files if modifying
 
+## External integrations
+Never replace a required external integration with a mock, stub, fake response,
+local substitute, or simulated implementation unless the plan explicitly requires it.
+
+If credentials, environment variables, permissions, or service configuration are missing:
+- stop execution
+- report exactly what is missing
+- do not claim the feature is implemented
+
 #### b. Implement the task
 - Follow the detailed specifications exactly
 - Maintain consistency with existing code patterns
