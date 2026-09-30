@@ -1,0 +1,36 @@
+{
+  "$comment": "Copy to .claude/settings.json (shared, committed) or .claude/settings.local.json (personal, ignored). Adjust the permission list to your stack. Hooks are placeholders: uncomment and point them at scripts in .claude/hooks/ once you have something worth automating.",
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npx tsc:*)",
+      "Bash(bun run:*)",
+      "Bash(uv run:*)",
+      "Bash(uv sync:*)",
+      "Bash(ls:*)",
+      "Bash(tree:*)",
+      "Read(**)",
+      "Grep(**)",
+      "Glob(**)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/*.pem)",
+      "Bash(git push --force:*)",
+      "Bash(rm -rf:*)"
+    ]
+  },
+  "hooks": {
+    "$comment": "Examples. PostToolUse on Edit|Write is a good place for an auto-formatter. Stop is a good place for a notification or a lint gate.",
+    "PostToolUse": [],
+    "Stop": []
+  }
+}
